@@ -1,0 +1,11 @@
+LICENSE
+README.md
+pyproject.toml
+setup.cfg
+src/emcommon/__init__.py
+src/emcommon/common.py
+src/emcommon/items.py
+src/emcommon.egg-info/PKG-INFO
+src/emcommon.egg-info/SOURCES.txt
+src/emcommon.egg-info/dependency_links.txt
+src/emcommon.egg-info/top_level.txt

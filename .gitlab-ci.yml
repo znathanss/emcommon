@@ -1,0 +1,33 @@
+stages:
+  - build
+  - push
+
+build_ce8:
+  stage: build
+  image: centos:8
+  script:
+    - python3 -m build
+
+build_ce7:
+  stage: build
+  image: centos:8
+  script:
+    - python3 -m build
+
+build_deb10:
+  stage: build
+  image: debian:10
+  script:
+    - python3 -m build
+
+build_deb11:
+  stage: build
+  image: debian:11
+  script:
+    - python3 -m build
+
+build_ubuntu20:
+  stage: build
+  image: ubuntu:20
+  script:
+    - python3 -m build
