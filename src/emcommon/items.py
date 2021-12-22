@@ -1,7 +1,7 @@
 import json
 import redis
 import requests
-from emcommon.common import process_http_code, esi_request
+from emcommon.common import esi_request
 
 
 def get_typeName(typeID, redis_conn=None):
@@ -9,9 +9,19 @@ def get_typeName(typeID, redis_conn=None):
     request_url = "https://esi.evetech.net/latest/universe/names/?datasource=tranquility"
     request_body = [typeID]
     if not redis_conn:
-        item_data = esi_request(request_url, "POST", request_body)[0]
-        if item_data['category'] == "inventory_type":
-            return item_data['id']
+        item_data = esi_request(request_url, "POST", request_body)
+        for item in item_data:
+            if item_data['category'] == "inventory_type":
+                return int(item_data['id'])
+    if redis_conn:
+        cached_answer = redis_conn.get('type_name_{}'.format(typeID))
+        if cached_answer is None:
+            item_data = esi_request(request_url, "POST", request_body)
+            for item in item_data:
+                if item_data['category'] == "inventory_type":
+                    redis_conn.set('type_name_{}'.format(typeID), item_data['name'])
+                    return item_data['name']
+
 
         
 
