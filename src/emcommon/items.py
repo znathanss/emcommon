@@ -1,7 +1,7 @@
 import json
 import redis
 import requests
-from common import process_http_code, esi_request
+from emcommon.common import process_http_code, esi_request
 
 
 def get_typeName(typeID, redis_conn=None):
