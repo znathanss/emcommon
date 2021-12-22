@@ -7,6 +7,7 @@ build_ce8:
   image: centos:8
   script:
     - dnf -y install python3-pip
+    - pip3 install build twine
     - python3 -m build
 
 build_ce7:
@@ -14,22 +15,26 @@ build_ce7:
   image: centos:7
   script:
     - yum -y install python3-pip
+    - pip3 install build twine
     - python3 -m build
 
 build_deb10:
   stage: build
   image: debian:10
   script:
+    - apt-get update && apt-get install -y python3-pip && pip3 install build twine
     - python3 -m build
 
 build_deb11:
   stage: build
   image: debian:11
   script:
+    - apt-get update && apt-get install -y python3-pip && pip3 install build twine
     - python3 -m build
 
 build_ubuntu20:
   stage: build
   image: ubuntu:20
   script:
+    - apt-get update && apt-get install -y python3-pip && pip3 install build twine
     - python3 -m build
