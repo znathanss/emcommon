@@ -7,6 +7,7 @@ build_ce7:
   image: git.zswap.net:5050/nathans/centos:7
   script:
     - yum -y install python3-pip
+    - pip3 install --upgrade pip
     - pip3 install build twine
     - python3 -m build
 
@@ -15,6 +16,7 @@ build_ce8:
   image: git.zswap.net:5050/nathans/centos:8
   script:
     - dnf -y install python3-pip
+    - pip3 install --upgrade pip
     - pip3 install build twine
     - python3 -m build
 
@@ -22,12 +24,16 @@ build_deb10:
   stage: build
   image: git.zswap.net:5050/nathans/debian:10
   script:
-    - apt-get update && apt-get install -y python3-pip && pip3 install build twine
+    - apt-get update && apt-get install -y python3-pip
+    - pip3 install --upgrade pip
+    - pip3 install build twine
     - python3 -m build
 
 build_deb11:
   stage: build
   image: git.zswap.net:5050/nathans/debian:11
   script:
-    - apt-get update && apt-get install -y python3-pip && pip3 install build twine
+    - apt-get update && apt-get install -y python3-pip
+    - pip3 install --upgrade pip
+    - pip3 install build twine
     - python3 -m build
