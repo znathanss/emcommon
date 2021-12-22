@@ -4,7 +4,7 @@ import requests
 from emcommon.common import esi_request
 
 
-def get_typeName(typeID, redis_conn=None):
+def get_typeName(typeID, redis_conn=False):
     """ Return the typeName for a given typeID"""
     request_url = "https://esi.evetech.net/latest/universe/names/?datasource=tranquility"
     request_body = [typeID]
