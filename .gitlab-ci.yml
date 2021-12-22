@@ -55,7 +55,7 @@ build_deb11:
     expire_in: 7d
 
 push:
-  stage: build
+  stage: push
   image: git.zswap.net:5050/nathans/centos:8
   script:
     - dnf -y install python3-pip
