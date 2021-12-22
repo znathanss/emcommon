@@ -2,39 +2,32 @@ stages:
   - build
   - push
 
-build_ce8:
-  stage: build
-  image: centos:8
-  script:
-    - dnf -y install python3-pip
-    - pip3 install build twine
-    - python3 -m build
-
 build_ce7:
   stage: build
-  image: centos:7
+  image: git.zswap.net:5050/nathans/centos:7
   script:
     - yum -y install python3-pip
     - pip3 install build twine
     - python3 -m build
 
+build_ce8:
+  stage: build
+  image: git.zswap.net:5050/nathans/centos:8
+  script:
+    - dnf -y install python3-pip
+    - pip3 install build twine
+    - python3 -m build
+
 build_deb10:
   stage: build
-  image: debian:10
+  image: git.zswap.net:5050/nathans/debian:10
   script:
     - apt-get update && apt-get install -y python3-pip && pip3 install build twine
     - python3 -m build
 
 build_deb11:
   stage: build
-  image: debian:11
-  script:
-    - apt-get update && apt-get install -y python3-pip && pip3 install build twine
-    - python3 -m build
-
-build_ubuntu20:
-  stage: build
-  image: ubuntu:20
+  image: git.zswap.net:5050/nathans/debian:11
   script:
     - apt-get update && apt-get install -y python3-pip && pip3 install build twine
     - python3 -m build
