@@ -33,7 +33,7 @@ build_deb11:
   stage: build
   image: git.zswap.net:5050/nathans/debian:11
   script:
-    - apt-get update && apt-get install -y python3-pip
+    - apt-get update && apt-get install -y python3-pip python3-venv
     - pip3 install --upgrade pip
     - pip3 install build twine
     - python3 -m build
