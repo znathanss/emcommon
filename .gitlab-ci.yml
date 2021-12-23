@@ -30,7 +30,7 @@ build2:
     expire_in: 7d
 
 
-test:
+test3:
   stage: test
   image: python:3
   script:
