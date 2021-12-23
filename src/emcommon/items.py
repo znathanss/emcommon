@@ -27,8 +27,30 @@ def get_typeName(typeID, redis_conn=False):
             return str(cached_answer.decode('utf-8'))
 
 
-        
 
+def get_typeID(typeName, redis_conn=False):
+    """ Return the typeName for a given typeID"""
+    request_url = "https://esi.evetech.net/latest/universe/ids/?datasource=tranquility"
+    request_body = [typeName]
+    if not redis_conn:
+        item_data = esi_request(request_url, "POST", request_body)
+        item_data = json.loads(json.dumps(item_data))['inventory_types']
+        if len(item_data) > 0:
+            for item in item_data:
+                if item['name'] == typeName:
+                    return int(item['id'])
+    if redis_conn:
+        cached_answer = redis_conn.get('type_id_{}'.format(typeName))
+        if cached_answer is None:
+            item_data = esi_request(request_url, "POST", request_body)
+            item_data = json.loads(json.dumps(item_data))['inventory_types']
+            if len(item_data) > 0:
+                for item in item_data:
+                    if item['name'] == typeName:
+                        redis_conn.set('type_id_{}'.format(typeName), item['id'])
+                        return int(item['id'])
+        else:
+            return int(cached_answer.decode('utf-8'))
     
 
 
