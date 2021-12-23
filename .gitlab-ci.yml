@@ -1,5 +1,6 @@
 stages:
   - build
+  - test
   - push
 
 build_ce7:
@@ -53,6 +54,16 @@ build_deb11:
     paths:
       - dist
     expire_in: 7d
+
+test_ce8:
+  stage: test
+  image: git.zswap.net:5050/nathans/centos:8
+  script:
+    - pip3 install --upgrade pip
+    - pip3 install .
+    - pip3 install pytest
+    - pytest
+
 
 push:
   stage: push

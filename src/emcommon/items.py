@@ -11,16 +11,20 @@ def get_typeName(typeID, redis_conn=False):
     if not redis_conn:
         item_data = esi_request(request_url, "POST", request_body)
         for item in item_data:
-            if item_data['category'] == "inventory_type":
-                return int(item_data['id'])
+            item = json.loads(json.dumps(item))
+            if item['category'] == "inventory_type":
+                return str(item['name'])
     if redis_conn:
         cached_answer = redis_conn.get('type_name_{}'.format(typeID))
         if cached_answer is None:
             item_data = esi_request(request_url, "POST", request_body)
             for item in item_data:
-                if item_data['category'] == "inventory_type":
-                    redis_conn.set('type_name_{}'.format(typeID), item_data['name'])
-                    return item_data['name']
+                item = json.loads(json.dumps(item))
+                if item['category'] == "inventory_type":
+                    redis_conn.set('type_name_{}'.format(typeID), item['name'])
+                    return str(item['name'])
+        else:
+            return str(cached_answer.decode('utf-8'))
 
 
         
