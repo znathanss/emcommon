@@ -5,7 +5,7 @@ stages:
   - push
 
 
-build:
+build3:
   stage: build
   image: python:3
   script:
@@ -17,6 +17,18 @@ build:
       - dist
     expire_in: 7d
   
+build2:
+  stage: build
+  image: python:2
+  script:
+    - pip install --upgrade pip
+    - pip install build twine
+    - python -m build
+  artifacts:
+    paths:
+      - dist
+    expire_in: 7d
+
 
 test:
   stage: test
@@ -25,6 +37,16 @@ test:
     - pip3 install --upgrade pip
     - pip3 install .
     - pip3 install pytest
+    - pytest
+
+
+test2:
+  stage: test
+  image: python:2
+  script:
+    - pip install --upgrade pip
+    - pip install .
+    - pip install pytest
     - pytest
 
 
