@@ -59,6 +59,7 @@ test_ce8:
   stage: test
   image: git.zswap.net:5050/nathans/centos:8
   script:
+    - dnf -y install python3-pip
     - pip3 install --upgrade pip
     - pip3 install .
     - pip3 install pytest
