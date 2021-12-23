@@ -7,7 +7,7 @@ stages:
 
 build:
   stage: build
-  image: python3
+  image: python:3
   script:
     - pip3 install --upgrade pip
     - pip3 install build twine
@@ -31,9 +31,8 @@ test:
 push:
   stage: push
   when: on_success
-  image: git.zswap.net:5050/nathans/centos:8
+  image: python:3
   script:
-    - dnf -y install python3-pip
     - pip3 install --upgrade pip
     - pip3 install twine
     - python3 -m twine upload --repository testpypi dist/* --username __token__ --password $PYPI_API_KEY
