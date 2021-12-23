@@ -1,26 +1,14 @@
+---
 stages:
   - build
   - test
   - push
 
-build_ce7:
-  stage: build
-  image: git.zswap.net:5050/nathans/centos:7
-  script:
-    - yum -y install python3-pip
-    - pip3 install --upgrade pip
-    - pip3 install build twine
-    - python3 -m build
-  artifacts:
-    paths:
-      - dist
-    expire_in: 7d
 
-build_ce8:
+build:
   stage: build
-  image: git.zswap.net:5050/nathans/centos:8
+  image: python3
   script:
-    - dnf -y install python3-pip
     - pip3 install --upgrade pip
     - pip3 install build twine
     - python3 -m build
@@ -29,37 +17,11 @@ build_ce8:
       - dist
     expire_in: 7d
   
-build_deb10:
-  stage: build
-  image: git.zswap.net:5050/nathans/debian:10
-  script:
-    - apt-get update && apt-get install -y python3-pip python3-venv
-    - pip3 install --upgrade pip
-    - pip3 install build twine
-    - python3 -m build
-  artifacts:
-    paths:
-      - dist
-    expire_in: 7d
 
-build_deb11:
-  stage: build
-  image: git.zswap.net:5050/nathans/debian:11
-  script:
-    - apt-get update && apt-get install -y python3-pip python3-venv
-    - pip3 install --upgrade pip
-    - pip3 install build twine
-    - python3 -m build
-  artifacts:
-    paths:
-      - dist
-    expire_in: 7d
-
-test_ce8:
+test:
   stage: test
-  image: git.zswap.net:5050/nathans/centos:8
+  image: python:3
   script:
-    - dnf -y install python3-pip
     - pip3 install --upgrade pip
     - pip3 install .
     - pip3 install pytest
