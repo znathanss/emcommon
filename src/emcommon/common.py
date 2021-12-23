@@ -39,6 +39,6 @@ def esi_request(url, req_type, body=None):
     elif req_type == "POST":
         response = requests.post(url, headers=headers, json=body)
     if process_http_code(response):
-        return response.json()
+        return response.text
     return False
     

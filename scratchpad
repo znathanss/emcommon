@@ -1,0 +1,77 @@
+    def typeName(self):
+        """ Return the typeName for a given typeID"""
+        request_url = "https://esi.evetech.net/latest/universe/names/?datasource=tranquility"
+        request_body = [self.typeID]
+        if not self.redis_conn:
+            item_data = esi_request(request_url, "POST", request_body)
+            for item in item_data:
+                item = json.loads(json.dumps(item))
+                if item['category'] == "inventory_type":
+                    return str(item['name'])
+        if self.redis_conn:
+            cached_answer = self.redis_conn.get('type_name_{}'.format(self.typeID))
+            if cached_answer is None:
+                item_data = esi_request(request_url, "POST", request_body)
+                for item in item_data:
+                    item = json.loads(json.dumps(item))
+                    if item['category'] == "inventory_type":
+                        self.redis_conn.set('type_name_{}'.format(self.typeID), item['name'])
+                        return str(item['name'])
+            else:
+                return str(cached_answer.decode('utf-8'))
+
+
+
+
+def get_typeID(typeName, redis_conn=False):
+    """ Return the typeName for a given typeID"""
+    request_url = "https://esi.evetech.net/latest/universe/ids/?datasource=tranquility"
+    request_body = [typeName]
+    if not redis_conn:
+        item_data = esi_request(request_url, "POST", request_body)
+        item_data = json.loads(json.dumps(item_data))['inventory_types']
+        if len(item_data) > 0:
+            for item in item_data:
+                if item['name'] == typeName:
+                    return int(item['id'])
+    if redis_conn:
+        cached_answer = redis_conn.get('type_id_{}'.format(typeName))
+        if cached_answer is None:
+            item_data = esi_request(request_url, "POST", request_body)
+            item_data = json.loads(json.dumps(item_data))['inventory_types']
+            if len(item_data) > 0:
+                for item in item_data:
+                    if item['name'] == typeName:
+                        redis_conn.set('type_id_{}'.format(typeName), item['id'])
+                        return int(item['id'])
+        else:
+            return int(cached_answer.decode('utf-8'))
+    
+
+
+def get_type_ids():
+    """
+    Return a json object of all typeIDs currently in the SDE
+    """
+    answer = {}
+    r = redis_connect()
+    cached_data = r.get('all_tradeable_type_ids')
+    if not cached_data:
+        sql = "select typeID, typeName from invTypes where marketGroupID is not NULL"
+        conn = mysql_connect()
+        cur = conn.cursor()
+        cur.execute(sql)
+        results = cur.fetchall()
+        r.setex(
+            'all_tradeable_type_ids',
+            3600,
+            json.dumps(results)
+        )
+        for row in results:
+            answer[row['typeName']] = row['typeID']
+        return jsonable_encoder(answer)
+    else:
+        results = cached_data
+    for row in json.loads(results):
+        answer[row['typeName']] = row['typeID']
+    return answer
