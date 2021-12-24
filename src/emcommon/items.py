@@ -2,6 +2,7 @@
 inventory type class
 """
 
+import requests
 import json
 from emcommon.common import esi_request
 
@@ -15,6 +16,7 @@ class Item:
     def typeID(self):
         """ Just return the typeID """
         return self.typeID
+
 
     def info(self, field):
         """ Return the typeName for a given typeID"""
@@ -30,3 +32,20 @@ class Item:
             return data[field]
         cached_data = json.loads(cached_data.decode('utf-8'))
         return cached_data[field]
+    
+
+    def orders(self, system_id=None):
+        """ Return a list of orders for this typeID"""
+        if system_id == None:
+            request_url = "https://api.eve-market.net/orders?item_id={}".format(self.typeID)
+        else:
+            request_url = "https://api.eve-market.net/orders?item_id={}&system_id={}".format(self.typeID, system_id)
+        data = json.loads(requests.get(request_url).text)
+        return data
+
+
+    def price(self, system_id=30000142):
+        """ Return the price for this typeID. Defaults to Jita """
+        request_url = "https://api.eve-market.net/get_adjusted_market_price?typeID={}&market={}".format(self.typeID, system_id)
+        data = json.loads(requests.get(request_url).text)
+        return data
