@@ -15,16 +15,14 @@ class System:
     def info(self, field):
         """ Return the typeName for a given type_id"""
         if not self.redis_conn:
-            request_url = f"https://esi.evetech.net/latest/universe/\
-            systems/{self.system_id()}/?datasource=tranquility&language=en"
+            request_url = f"https://esi.evetech.net/latest/universe/systems/{self.system_id}/?datasource=tranquility&language=en"
             data = json.loads(esi_request(request_url, "GET"))
             return data[field]
-        cached_data = self.redis_conn.get(f'system_info_{self.system_id()}')
+        cached_data = self.redis_conn.get(f'system_info_{self.system_id}')
         if cached_data is None:
-            request_url = f"https://esi.evetech.net/latest/\
-            universe/systems/{self.system_id()}/?datasource=tranquility&language=en"
+            request_url = f"https://esi.evetech.net/latest/universe/systems/{self.system_id}/?datasource=tranquility&language=en"
             data = json.loads(esi_request(request_url, "GET"))
-            self.redis_conn.setex(f'system_info_{self.system_id()}', 3600, json.dumps(data))
+            self.redis_conn.setex(f'system_info_{self.system_id}', 3600, json.dumps(data))
             return data[field]
         cached_data = json.loads(cached_data.decode('utf-8'))
         return cached_data[field]
