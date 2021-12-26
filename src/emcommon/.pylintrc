@@ -88,7 +88,8 @@ disable=raw-checker-failed,
         use-symbolic-message-instead,
 	too-few-public-methods,
 	inconsistent-return-statements,
-	method-hidden
+	method-hidden,
+	line-too-long
 	
 
 # Enable the message, report, category or checker with the given id(s). You can
