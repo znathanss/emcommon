@@ -1,6 +1,8 @@
+# -*- coding: future_fstrings -*-
 """
 inventory type class
 """
+
 
 import json
 import requests

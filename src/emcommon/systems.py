@@ -1,3 +1,4 @@
+# -*- coding: future_fstrings -*-
 """
 systems type class
 """
