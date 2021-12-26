@@ -5,6 +5,7 @@ setup.cfg
 src/emcommon/__init__.py
 src/emcommon/common.py
 src/emcommon/items.py
+src/emcommon/systems.py
 src/emcommon.egg-info/PKG-INFO
 src/emcommon.egg-info/SOURCES.txt
 src/emcommon.egg-info/dependency_links.txt

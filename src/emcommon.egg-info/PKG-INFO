@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: emcommon
-Version: 0.0.5
+Version: 0.0.7
 Summary: A collection of functions for common EM operations
 Home-page: https://git.zswap.net/em/emcommon
 Author: Nathan Spiegel
@@ -11,7 +11,7 @@ Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
-Requires-Python: >=3.6
+Requires-Python: >=2.7
 Description-Content-Type: text/markdown
 License-File: LICENSE
 
