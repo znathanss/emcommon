@@ -9,7 +9,7 @@ def process_http_code(response):
     """
     Process the HTTP code of the response
     """
-    if not response.ok:  # Save time by only looping if not 2xx
+    if not response.ok:
         print(response.reason)
     else:
         return response
