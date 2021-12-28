@@ -16,3 +16,18 @@ class Universe:
         request_url = urljoin(self.base_url, 'systems')
         data = json.loads(esi_request(request_url, "GET"))
         return data
+
+    def regions(self):
+        request_url = urljoin(self.base_url, 'regions')
+        data = json.loads(esi_request(request_url, "GET"))
+        return data
+
+    def constellations(self):
+        request_url = urljoin(self.base_url, 'constellations')
+        data = json.loads(esi_request(request_url, "GET"))
+        return data
+
+    def structures(self):
+        request_url = urljoin(self.base_url, 'structures')
+        data = json.loads(esi_request(request_url, "GET"))
+        return data
