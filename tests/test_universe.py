@@ -1,11 +1,8 @@
 from emcommon.items import Item
 from emcommon.systems import System
 from emcommon.universe import Universe
-import redis
 import os
 
-redis_host = os.environ.get('REDIS_HOST', 'redis-master')
-r = redis.Redis(host=redis_host, port=6379, db=0)
 
 def test_universe_systems():
     eve = Universe()

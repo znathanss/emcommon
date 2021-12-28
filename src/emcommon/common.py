@@ -11,8 +11,8 @@ def process_http_code(response):
     """
     if not response.ok:
         print(response.reason)
-    else:
-        return response
+        return False
+    return response
 
 
 def esi_request(url, req_type, body=None):
