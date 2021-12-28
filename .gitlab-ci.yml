@@ -16,18 +16,6 @@ build3:
     paths:
       - dist
     expire_in: 7d
-  
-build2:
-  stage: build
-  image: python:2
-  script:
-    - pip install --upgrade pip
-    - pip install build twine
-    - python -m build
-  artifacts:
-    paths:
-      - dist
-    expire_in: 7d
 
 
 test3:
@@ -38,17 +26,6 @@ test3:
     - pip3 install --upgrade pip
     - pip3 install .
     - pip3 install pytest
-    - pytest
-
-
-test2:
-  stage: test
-  when: on_success
-  image: python:2
-  script:
-    - pip install --upgrade pip
-    - pip install .
-    - pip install pytest
     - pytest
 
 
