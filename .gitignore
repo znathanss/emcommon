@@ -2,3 +2,5 @@ dist
 venv
 .idea
 build
+tests/__pycache__
+src/emcommon/__pycache__
