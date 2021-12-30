@@ -1,5 +1,0 @@
-redis
-pika
-pymysql
-requests
-future-fstrings
