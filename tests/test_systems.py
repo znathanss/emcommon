@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 
-from emcommon.items import Item
 from emcommon.systems import System
 import os
 
@@ -13,3 +12,4 @@ def test_system_system_id():
 def test_system_planets():
     planets = System(30000142).info('planets')
     assert len(planets) > 0
+
